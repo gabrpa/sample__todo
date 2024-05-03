@@ -1,5 +1,4 @@
-
-
+import { User } from '@prisma/client';
 export class AuthDTO implements User {
   id: number;
   firstName: string;
