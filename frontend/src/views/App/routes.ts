@@ -1,14 +1,14 @@
 import { RouteObject } from "react-router-dom";
 import { Layout } from "../Layout/Layout";
+import Authentication from "../Authentication";
 import Profile from "../Profile";
-import Todo from "../Todo";
-import Login from "../Login";
+import Home from "../Home";
 
 export const routes: RouteObject[] = [
 
     {
-        path: '/login',
-        Component: Login
+        path: '/auth',
+        Component: Authentication
     },
     {
         path: '/home',
@@ -19,8 +19,8 @@ export const routes: RouteObject[] = [
                 Component: Profile,
             },
             {
-                path: '/home/todo',
-                Component: Todo
+                path: '/home/todos',
+                Component: Home
             }
         ]
     }

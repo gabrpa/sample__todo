@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import TodoDialog from "../../components/TodoDialog";
 
-export const Login = () => {
+export const Authentication = () => {
   const [openRegisterDialog, setOpenRegisterDialog] = useState(false);
 
   const handleLogin = () => {
