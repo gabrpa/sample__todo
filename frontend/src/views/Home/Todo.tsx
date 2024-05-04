@@ -4,12 +4,13 @@ import { TodoList } from "./components/TodoList/TodoList"
 export const Todo = () => {
 
     const todo = [{
+        id: 1,
         title: "FirstTodo",
         description: "My Description",
         completed: true
     }]
 
     return (<Grid container justifyContent={'center'}>
-        <TodoList data={todo}/>
+        <TodoList todos={todo}/>
     </Grid>)
 }
