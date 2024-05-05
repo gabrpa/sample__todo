@@ -1,3 +1,4 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Button,
   Dialog,
@@ -8,13 +9,18 @@ import {
   TextField,
   TextFieldProps,
 } from "@mui/material";
+import { UseFormReset, useForm } from "react-hook-form";
+import yup, { AnyObject } from 'yup'
 
 interface ITodoDialogProps {
   open: boolean;
   title: string;
   description?: string;
   textfield?: TextFieldProps[];
-  onSubmit: () => unknown;
+  schema: yup.ObjectSchema<AnyObject>;
+  defaultValues?: AnyObject;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSubmit: (data: any, reset: UseFormReset<AnyObject>) => void;
   onClose: () => unknown;
 }
 
@@ -26,8 +32,14 @@ export const TodoDialog = (props: ITodoDialogProps) => {
     textfield,
     onSubmit,
     onClose,
+    schema,
     ...dialogProps
   } = props;
+
+  const { handleSubmit, register, reset } = useForm({
+    resolver: yupResolver(schema)
+  })
+
   return (
     <Dialog open={open} onClose={onClose} {...dialogProps}>
       <DialogTitle sx={{ padding: 4}} variant="h3" textAlign={'center'}>{title}</DialogTitle>
@@ -42,7 +54,7 @@ export const TodoDialog = (props: ITodoDialogProps) => {
               fullWidth
               required={field.required}
               label={field.label}
-              name={field.name}
+              {...register(field.name!)}
               type={field.type}
 
             />
@@ -50,7 +62,9 @@ export const TodoDialog = (props: ITodoDialogProps) => {
         </DialogContent>
       )}
       <DialogActions>
-        <Button onClick={onSubmit}>{"Confirm"}</Button>
+        <Button onClick={handleSubmit(async (data) => {
+          await onSubmit(data, reset);
+        })}>{"Confirm"}</Button>
         <Button onClick={onClose}>{"Cancel"}</Button>
       </DialogActions>
     </Dialog>

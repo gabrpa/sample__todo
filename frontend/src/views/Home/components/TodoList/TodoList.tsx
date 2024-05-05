@@ -1,16 +1,10 @@
 import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Checkbox,
+    Box,
   Grid,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import TodoDialog from "../../../../components/TodoDialog";
 import { ITodos } from "../../../../features/todo/interface";
+import { TodoCard } from "../TodoCard/TodoCard";
 
 interface ITodoListProps {
   todos: ITodos;
@@ -18,8 +12,6 @@ interface ITodoListProps {
 
 export const TodoList = (props: ITodoListProps) => {
   const { todos } = props;
-  const [openEditTodoDialog, setOpenEditTodoDialog] = useState(false);
-  const [openDeleteTodoDialog, setOpenDeleteTodoDialog] = useState(false);
 
   const handleEditTodo = () => {
     console.log("Edit");
@@ -34,39 +26,12 @@ export const TodoList = (props: ITodoListProps) => {
   }
 
   return (
-    <>
-      <Grid container xs={10}>
-        <Grid container>
+      <Grid container justifyContent={'center'}>
           {todos.map((todo) => (
-            <Card key={todo.id}>
-              <CardHeader title={todo.title} />
-              <CardContent>
-                <Typography>{todo.description}</Typography>
-                {/* {todo.date} */}
-                <Checkbox checked={todo.completed} />
-              </CardContent>
-              <CardActions>
-                <Button onClick={() => setOpenEditTodoDialog(true)}>Edit</Button>
-                <Button onClick={() => setOpenDeleteTodoDialog(true)}>Delete</Button>
-              </CardActions>
-            </Card>
+            <Box padding={2}>
+                <TodoCard todo={todo} onEdit={handleEditTodo} onDelete={handledeleteTodo}/>
+            </Box>
           ))}
-        </Grid>
       </Grid>
-
-      <TodoDialog
-        open={openEditTodoDialog}
-        title="Edit Todo"
-        onSubmit={() => handleEditTodo()}
-        onClose={() => setOpenEditTodoDialog(false)}
-      />
-      <TodoDialog
-        open={openDeleteTodoDialog}
-        title="Delete Todo"
-        description="Are you sure you want to delete this todo?"
-        onSubmit={() => handledeleteTodo()}
-        onClose={() => setOpenDeleteTodoDialog(false)}
-      />
-    </>
   );
 };

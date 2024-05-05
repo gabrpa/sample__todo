@@ -8,10 +8,12 @@ export interface ITodo {
 
 export type ITodos = ITodo[];
 
-export interface ITodoCreate extends Omit<ITodo, "id"> {}
+export interface ITodoCreate extends Omit<ITodo, "id" | 'completed'> {}
 
 export interface ITodoUpdate extends Partial<ITodo> {
   id: number;
+  title: string;
+  description: string;
 }
 
 export interface ITodoDelete extends Pick<ITodo, "id"> {}

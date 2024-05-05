@@ -6,7 +6,7 @@ export const Layout = () => {
     return (
         <Grid container justifyContent={'center'}>
             <Grid container item paddingBottom={5}>
-                <TodoHeader/>
+                <TodoHeader user={''}/>
             </Grid>
             <Outlet/>
         </Grid>

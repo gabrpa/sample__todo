@@ -36,7 +36,7 @@ export const ProfileForm = (props: IProfileFormProps) => {
             <Typography>Username:</Typography>
           </Grid>
           <Grid item xs={2}>
-            <TextField size="small" />
+            <TextField disabled size="small" />
           </Grid>
           <Grid item xs={1}>
             <Typography>Todos created:</Typography>
