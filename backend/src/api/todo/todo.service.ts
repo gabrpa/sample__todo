@@ -6,8 +6,10 @@ import { CreateTodoDTO, UpdateTodoDTO } from './dto/todo.dto';
 export class TodoService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getTodos() {
-    const res = await this.prismaService.todo.findMany();
+  async getTodos(username: string) {
+    const res = await this.prismaService.todo.findMany({
+      where: { user: { username } },
+    });
     return res;
   }
 

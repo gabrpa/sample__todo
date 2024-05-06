@@ -22,18 +22,19 @@ export class AuthService {
     }
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     return this.userService.createUser({
-        username,
-        password: hashedPassword,
-        ...rest,
+      username,
+      password: hashedPassword,
+      ...rest,
     });
   }
 
   async login(user: UserDTO) {
     const payload = { username: user.username, sub: user.id };
     return {
+      username: user.username,
       access_token: await this.jwtService.signAsync(payload, {
         secret: jwtConstants.secret,
-        expiresIn: '60m',
+        expiresIn: '99999m',
       }),
     };
   }

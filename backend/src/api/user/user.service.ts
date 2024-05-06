@@ -20,16 +20,20 @@ export class UserService {
 
   async createUser(body: SignUpDTO) {
     const res = await this.prismaService.user.create({
-      data: { ...body }
+      data: { ...body },
     });
     return res;
   }
 
-  async updateUser(id: number, body: any) {
-    const res = await this.prismaService.user.update({
-      where: { id },
-      data: { ...body },
-    });
-    return res;
+  async updateUser(username: string, body: any) {
+    const user = await this.getUserByUsername(username);
+    if (user) {
+      const res = await this.prismaService.user.update({
+        where: { id: user.id },
+        data: { ...body },
+      });
+      return res;
+    }
+    return null;
   }
 }

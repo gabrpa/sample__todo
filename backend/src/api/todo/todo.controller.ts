@@ -17,9 +17,9 @@ import { AuthGuard } from '@nestjs/passport';
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
-  @Get('get/all')
-  async getTodos() {
-    const res = await this.todoService.getTodos();
+  @Get('get-all/:username')
+  async getTodos(@Param('username') username: string) {
+    const res = await this.todoService.getTodos(username);
     return res;
   }
 
@@ -29,7 +29,7 @@ export class TodoController {
     return res;
   }
 
-  @Post('create')
+  @Post('create/')
   async createTodo(@Body() body: CreateTodoDTO) {
     const res = await this.todoService.createTodo(body);
     return res;
