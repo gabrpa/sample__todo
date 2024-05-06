@@ -1,14 +1,23 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { IUser, IUserUpdate } from "../../../../features/user/interface";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userProfileSchema } from "../../../../features/user/yup.schema";
 
 interface IProfileFormProps {
-    user: unknown;
+    user: IUser;
+    onSubmit: (data: IUserUpdate) => void;
 }
 
 export const ProfileForm = (props: IProfileFormProps) => {
-    const { user } = props;
+    const { user, onSubmit } = props;
 
-    console.log(user);
+
+  const { register, handleSubmit } = useForm<IUserUpdate>({
+    defaultValues: user,
+    resolver: yupResolver(userProfileSchema)
+  })
 
     return (
         <Grid container spacing={1} alignItems={"center"} justifyContent={"center"}>
@@ -22,13 +31,19 @@ export const ProfileForm = (props: IProfileFormProps) => {
             <Typography>First name:</Typography>
           </Grid>
           <Grid item xs={2}>
-            <TextField size="small"/>
+            <TextField 
+              size="small"
+              {...register('firstName')}
+              />
           </Grid>
           <Grid item xs={1}>
             <Typography>Last name:</Typography>
           </Grid>
           <Grid item xs={2}>
-            <TextField size="small" />
+            <TextField 
+              size="small"
+              {...register('lastName')}
+              />
           </Grid>
           <Grid item xs={3} />
           <Grid item xs={3} />
@@ -36,7 +51,11 @@ export const ProfileForm = (props: IProfileFormProps) => {
             <Typography>Username:</Typography>
           </Grid>
           <Grid item xs={2}>
-            <TextField disabled size="small" />
+            <TextField 
+              disabled 
+              size="small"
+              {...register('username')}
+              />
           </Grid>
           <Grid item xs={1}>
             <Typography>Todos created:</Typography>
@@ -45,6 +64,7 @@ export const ProfileForm = (props: IProfileFormProps) => {
             <Link to={'/home/todos'}>4</Link>
           </Grid>
           <Grid item xs={3} />
+          <Button onClick={handleSubmit(onSubmit)}>Save</Button>
         </Grid>
       );
 }

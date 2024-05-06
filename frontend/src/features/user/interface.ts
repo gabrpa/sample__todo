@@ -6,4 +6,4 @@ export interface IUser {
     password: string;
 }
 
-export interface IUserUpdate extends Omit<IUser, 'password'> {}
+export interface IUserUpdate extends Omit<IUser, 'id' | 'password'> {}

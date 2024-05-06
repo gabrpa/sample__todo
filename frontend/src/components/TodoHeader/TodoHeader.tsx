@@ -12,7 +12,7 @@ import TodoDialog from "../TodoDialog";
 import { todoCreateSchema } from "../../features/todo/yup.schema";
 import { IUser } from "../../features/user/interface";
 import { ITodoCreate } from "../../features/todo/interface";
-import { createTodo } from "../../features/todo/api";
+// import { createTodo } from "../../features/todo/api";
 import { UseFormReset } from "react-hook-form";
 
 interface ITodoHeaderProps {
@@ -25,15 +25,17 @@ export const TodoHeader = (props: ITodoHeaderProps) => {
   const navigate = useNavigate();
 
   const handleCreateTodo = async (data: ITodoCreate, reset: UseFormReset<ITodoCreate>) => {
-    await createTodo(data);
+    // await createTodo(data);
     setOpenCreateTodo(false);
     reset();
   }
 
   const handleLogout = () => {
     sessionStorage.removeItem('token');
-    navigate('auth')
+    navigate('/auth')
   }
+
+  console.log('user------->', user);
 
   return (
     <>
@@ -45,14 +47,14 @@ export const TodoHeader = (props: ITodoHeaderProps) => {
             alignItems={"center"}
           >
             <Grid item xs={3}>
-              <Typography variant="h6">{`Welcome, ${user.firstName} ${user.lastName}!`}</Typography>
+              <Typography variant="h6">{`Welcome, !`}</Typography>
             </Grid>
             <Grid item xs={3}>
               <Button
                 sx={{ fontWeight: 'bold', color: 'white'}}
                 variant="text"
                 onClick={async () => {
-                  await navigate("/home/todos");
+                  await navigate(`/home/todos/`);
                   setOpenCreateTodo(true);
                 }}
               >
@@ -63,7 +65,7 @@ export const TodoHeader = (props: ITodoHeaderProps) => {
               <Grid item>
                 <Button 
                   sx={{ fontWeight: 'bold', color: 'white'}}
-                  onClick={() => navigate("/home/profile")}
+                  onClick={() => navigate(`/home/profile/`)}
                   >Profile</Button>
               </Grid>
               <Grid item>
@@ -91,11 +93,12 @@ export const TodoHeader = (props: ITodoHeaderProps) => {
             name: "description",
             required: true,
           },
+        ]}
+        datetime={[
           {
-            label: "Due date",
-            name: "date",
-            type: "datetime-local",
-          },
+            label: "Duedate",
+            name: 'date'
+          }
         ]}
         schema={todoCreateSchema}
         onSubmit={handleCreateTodo}

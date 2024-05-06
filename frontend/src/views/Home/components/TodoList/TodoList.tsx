@@ -28,7 +28,7 @@ export const TodoList = (props: ITodoListProps) => {
   return (
       <Grid container justifyContent={'center'}>
           {todos.map((todo) => (
-            <Box padding={2}>
+            <Box padding={2} key={todo.id}>
                 <TodoCard todo={todo} onEdit={handleEditTodo} onDelete={handledeleteTodo}/>
             </Box>
           ))}

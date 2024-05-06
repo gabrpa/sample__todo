@@ -15,8 +15,8 @@ import { todoDeleteSchema, todoUpdateSchema } from "../../../../features/todo/yu
 
 interface ITodoCardProps {
   todo: ITodo;
-  onEdit: () => unknown;
-  onDelete: () => unknown;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
 export const TodoCard = (props: ITodoCardProps) => {

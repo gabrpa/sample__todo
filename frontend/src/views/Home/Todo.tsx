@@ -5,8 +5,8 @@ import { getTodos } from "../../features/todo/api";
 import { ITodos } from "../../features/todo/interface";
 
 export const Todo = () => {
-  
-  const { data: todos = [] } = useSWR<ITodos>('getTodos', async () => getTodos())
+  const username = sessionStorage.getItem('username');
+  const { data: todos = [] } = useSWR<ITodos>(username !== undefined && ['getTodos', username], async () => getTodos(username!))
 
   return (
     <Grid container>

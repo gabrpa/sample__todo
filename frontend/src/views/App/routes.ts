@@ -3,6 +3,8 @@ import { Layout } from "../Layout/Layout";
 import Authentication from "../Authentication";
 import Profile from "../Profile";
 import Home from "../Home";
+import { withPrivateRoute } from "../../hocs/withPrivateRoute/withPrivateRoute";
+import Unauthorized from "../Unauthorized";
 
 export const routes: RouteObject[] = [
 
@@ -11,16 +13,19 @@ export const routes: RouteObject[] = [
         Component: Authentication
     },
     {
-        path: '/home',
+        path: '/unauthorized',
+        Component: Unauthorized
+    },
+    {
         Component: Layout,
         children: [
             {
-                path: '/home/profile',
-                Component: Profile,
+                path: '/home/profile/',
+                Component: withPrivateRoute(Profile),
             },
             {
-                path: '/home/todos',
-                Component: Home
+                path: '/home/todos/',
+                Component: withPrivateRoute(Home)
             }
         ]
     }

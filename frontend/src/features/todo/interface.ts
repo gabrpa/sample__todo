@@ -2,7 +2,7 @@ export interface ITodo {
   id: number;
   title: string;
   description: string;
-  date?: Date;
+  date?: Date | null;
   completed?: boolean;
 }
 
