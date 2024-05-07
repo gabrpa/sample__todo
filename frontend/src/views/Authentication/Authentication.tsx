@@ -8,18 +8,18 @@ import { AuthenticationForm } from "./components";
 export const Authentication = () => {
   const navigate = useNavigate();
 
-  const handleLogin = async (data: IAuthLogin,reset: UseFormReset<IAuthLogin>) => {
+  const handleLogin = async (data: IAuthLogin, reset: UseFormReset<IAuthLogin> | undefined) => {
     await login(data)
-      reset();
+      reset && reset();
       navigate(`/home/todos/`);
   };
 
   const handleRegister = async (
     data: IAuthRegister,
-    reset: UseFormReset<IAuthRegister>
+    reset: UseFormReset<IAuthRegister> | undefined
   ) => {
     await register(data);
-    reset();
+    reset && reset();
     navigate("/auth");
   };
 

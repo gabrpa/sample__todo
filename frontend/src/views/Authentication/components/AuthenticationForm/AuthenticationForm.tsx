@@ -7,8 +7,8 @@ import { authLoginSchema, authRegisterSchema } from "../../../../features/auth/y
 import { yupResolver } from "@hookform/resolvers/yup";
 
 interface IAuthenticationFormProps {
-    onLogin: (data: IAuthLogin, reset: UseFormReset<IAuthLogin>) => void;
-    onRegister: (data: IAuthRegister, reset: UseFormReset<IAuthRegister>) => void;
+    onLogin: (data: IAuthLogin, reset: UseFormReset<IAuthLogin> | undefined) => void;
+    onRegister: (data: IAuthRegister, reset: UseFormReset<IAuthRegister> | undefined) => void;
 }
 
 export const AuthenticationForm = (props: IAuthenticationFormProps) => {

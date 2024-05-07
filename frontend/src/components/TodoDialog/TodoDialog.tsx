@@ -23,7 +23,7 @@ interface ITodoDialogProps {
   schema: yup.ObjectSchema<AnyObject>;
   defaultValues?: AnyObject;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSubmit: (data: any, reset: UseFormReset<AnyObject>) => void;
+  onSubmit: (data: any, reset?: UseFormReset<AnyObject>) => void;
   onClose: () => unknown;
 }
 
@@ -37,11 +37,13 @@ export const TodoDialog = (props: ITodoDialogProps) => {
     onSubmit,
     onClose,
     schema,
+    defaultValues,
     ...dialogProps
   } = props;
 
   const { handleSubmit, register, reset, control } = useForm({
     resolver: yupResolver(schema),
+    defaultValues,
   });
 
   return (
@@ -96,6 +98,7 @@ export const TodoDialog = (props: ITodoDialogProps) => {
       <DialogActions>
         <Button
           onClick={handleSubmit(async (data) => {
+            console.log(data);
             await onSubmit(data, reset);
           })}
         >

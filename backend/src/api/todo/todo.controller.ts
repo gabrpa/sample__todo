@@ -29,15 +29,18 @@ export class TodoController {
     return res;
   }
 
-  @Post('create/')
-  async createTodo(@Body() body: CreateTodoDTO) {
-    const res = await this.todoService.createTodo(body);
+  @Post('create/:username')
+  async createTodo(
+    @Param('username') username: string,
+    @Body() body: CreateTodoDTO,
+  ) {
+    const res = await this.todoService.createTodo(username, body);
     return res;
   }
 
   @Put('update/:id')
   async updateTodo(@Param('id') id: number, @Body() body: UpdateTodoDTO) {
-    const res = await this.todoService.updateTodo(id, body);
+    const res = await this.todoService.updateTodo(+id, body);
     return res;
   }
 

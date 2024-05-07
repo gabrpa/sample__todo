@@ -4,6 +4,7 @@ import { IUser, IUserUpdate } from "../../../../features/user/interface";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userProfileSchema } from "../../../../features/user/yup.schema";
+import TodoTitle from "../../../../components/TodoTitle";
 
 interface IProfileFormProps {
     user: IUser;
@@ -21,11 +22,7 @@ export const ProfileForm = (props: IProfileFormProps) => {
 
     return (
         <Grid container spacing={1} alignItems={"center"} justifyContent={"center"}>
-          <Grid item xs={12}>
-            <Typography variant="h3" padding={3} textAlign={"center"}>
-              User Details
-            </Typography>
-          </Grid>
+          <TodoTitle title="User Details"/>
           <Grid item xs={3} />
           <Grid item xs={1}>
             <Typography>First name:</Typography>

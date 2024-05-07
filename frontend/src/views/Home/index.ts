@@ -1,3 +1,3 @@
-import { Todo } from "./Todo";
+import { Home } from "./Home";
 
-export default Todo;
+export default Home;

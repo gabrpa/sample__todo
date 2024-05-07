@@ -9,20 +9,15 @@ import {
   Typography,
 } from "@mui/material";
 import { ITodo } from "../../../../features/todo/interface";
-import { useState } from "react";
-import TodoDialog from "../../../../components/TodoDialog";
-import { todoDeleteSchema, todoUpdateSchema } from "../../../../features/todo/yup.schema";
 
 interface ITodoCardProps {
   todo: ITodo;
-  onEdit: () => void;
-  onDelete: () => void;
+  onEdit: (todo: ITodo) => void;
+  onDelete: (id: number) => void;
 }
 
 export const TodoCard = (props: ITodoCardProps) => {
   const { todo, onEdit, onDelete } = props;
-  const [openEditTodoDialog, setOpenEditTodoDialog] = useState(false);
-  const [openDeleteTodoDialog, setOpenDeleteTodoDialog] = useState(false);
 
   return (
     <>
@@ -50,30 +45,16 @@ export const TodoCard = (props: ITodoCardProps) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" onClick={() => setOpenEditTodoDialog(true)}>
+          <Button size="small" onClick={() => onEdit(todo)}>
             Edit
           </Button>
-          <Button size="small" onClick={() => setOpenDeleteTodoDialog(true)}>
+          <Button size="small" onClick={() => onDelete(todo.id)}>
             Delete
           </Button>
         </CardActions>
       </Card>
 
-      <TodoDialog
-        open={openEditTodoDialog}
-        title="Edit Todo"
-        schema={todoUpdateSchema}
-        onSubmit={onEdit}
-        onClose={() => setOpenEditTodoDialog(false)}
-      />
-      <TodoDialog
-        open={openDeleteTodoDialog}
-        title="Delete Todo"
-        description="Are you sure you want to delete this todo?"
-        schema={todoDeleteSchema}
-        onSubmit={onDelete}
-        onClose={() => setOpenDeleteTodoDialog(false)}
-      />
+  
     </>
   );
 };

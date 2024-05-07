@@ -6,18 +6,18 @@ import { IUserUpdate } from "../../features/user/interface";
 
 export const Profile = () => {
   const username = sessionStorage.getItem('username');
-
   const { data: user, mutate } = useSWR(username !== undefined && ['GET_USER', username], () => getUser(username));
 
-  const handleEditProfile = async (data: IUserUpdate) => {
+  const handleUpdateUser = async (data: IUserUpdate) => {
     await updateUser(username!, data);
     mutate();
   }
 
-
   return(
     <Grid container>
-        <ProfileForm user={user} onSubmit={handleEditProfile} />
+      {user && (
+        <ProfileForm user={user} onSubmit={handleUpdateUser} />
+      )}
     </Grid>
   )
 };
